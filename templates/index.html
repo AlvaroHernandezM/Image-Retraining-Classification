@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Image-Retraining-Classification</title>
+	<link rel="shortcut icon" href="{{ url_for('static', filename='img/uptc_logo.png') }}" />
+
+	<!-- Bootstrap core CSS -->
+	<link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+	<!-- Custom styles for this template render_template-->
+	<link href="{{ url_for('static', filename='css/portfolio-item.css') }}" rel="stylesheet">
+	<!-- Dropzone css -->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/dropzone/css/dropzone.css') }}">
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+	<div class="container">
+		<a class="navbar-brand" href="/"> <center> Clasificador Transfer Learning/ Image Retraining con documentos de identificación institucionales</center></a>
+  </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+	
+	
+	<!-- Portfolio Item Heading -->
+	<h1 class="my-4"><center> Cargar imágen nueva para clasificar</center>
+	</h1>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<form action="/file-upload/classification"
+			      class="dropzone"
+			      id="my-positive-dropzone">
+			      	<div class="dz-message" data-dz-message>
+			      		<span>Arrastre u oprima acá para cargar la imágen que desea clasificar</span>
+			      	</div>
+			    </form>
+			</div>		
+		</div>
+		<div class="row">
+			<form class="form-group" method="POST" action="{{ url_for('classification') }}" enctype="multipart/form-data">
+				<div class="container">
+					<div class="form-group">
+						<button type="submit" class="btn btn-success btn btn-primary btn-lg btn-block">CLASIFICAR</button>						
+					</div>
+				</div>
+			</form>			
+		</div>
+		{% if predict %}
+			<div class="row">
+				<div class="col">
+					<center><img src="{{url_image}}" alt="no-upload-img-classification" width="360" height="420"></center>
+				</div>
+
+					<div class="alert alert-success" role="alert">						
+						{% if class_1 %}
+							<table class="table table-hover">
+								  <h3>Image Retraining/ Transfer Learning</h3>
+								  <thead>
+								    <tr>
+								    	<th scope="col">#</th>
+								    	<th scope="col">Clase</th>
+								    	<th scope="col">Exactitud de clasificación</th>
+								    </tr>
+								  </thead>
+								  <tbody>
+								    <tr>
+								    	<td>1</td>
+								    	<td>{{class_1}}</td>
+								    	<td>{{score_1}}</td>
+								    </tr>
+								    <tr>
+								    	<td>2</td>
+								    	<td>{{class_2}}</td>
+								    	<td>{{score_2}}</td>
+								    </tr>			    
+								  </tbody>
+							</table>
+						{% endif %}
+					</div>									
+				</div>
+			</div>
+		{% endif  %}
+	<!-- /.row -->
+</div>
+<!-- /.container -->
+
+<!-- Bootstrap core JavaScript -->
+<script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='vendor/dropzone/js/dropzone.js') }}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>	
+</body>
+
+</html>
+
+
